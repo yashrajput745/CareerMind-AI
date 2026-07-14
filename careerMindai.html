@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerMind AI — Powered by IBM watsonx</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- IBM watsonx chat widget root (fixed, zero-size) -->
+<div id="root"></div>
+
+<!-- ── AI AGENT SPOTLIGHT OVERLAY (first visit only) ── -->
+<div id="agent-spotlight-overlay">
+  <div id="agent-spotlight-tip">
+    <div class="spotlight-tip-header">
+      <span class="tip-dot"></span>
+      AI Career Counselor is Ready!
+    </div>
+    <p class="spotlight-tip-body">
+      Your personal AI career counselor is live in the
+      <strong>bottom-right corner</strong> of this page.
+      Click the blue chat bubble to start your FREE session!
+    </p>
+    <button id="dismiss-spotlight">Got it, let's go! 🚀</button>
+  </div>
+</div>
+
+<!-- Pulsing ring around the chat bubble -->
+<div id="chat-bubble-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="logo-icon">
+      <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6L12 22l-3.8-7C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/>
+        <circle cx="12" cy="9" r="2.5" fill="#fff" stroke="none"/>
+      </svg>
+    </div>
+    CareerMind AI
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#chat">Try It Live</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#chat" class="nav-cta">Start Free Session</a></li>
+    </ul>
+    <!-- Dark / Light mode toggle -->
+    <button class="theme-toggle" id="theme-toggle-btn" title="Toggle dark/light mode">
+      <span class="theme-icon" id="theme-icon">🌙</span>
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span> Powered by IBM watsonx Orchestrate
+    </div>
+    <h1>Your <span class="highlight">AI-Powered</span><br />Career Counselor</h1>
+    <p>Get personalized career guidance, resume analysis, interview coaching, and skill gap assessments — all in real time with enterprise-grade AI that understands your unique professional journey.</p>
+    <div class="hero-actions">
+      <a href="#chat" class="btn-primary">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Chat with AI Counselor
+      </a>
+      <a href="#how-it-works" class="btn-secondary">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+        </svg>
+        See How It Works
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">98K+</div>
+        <div class="stat-label">Careers Guided</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">4.9/5</div>
+        <div class="stat-label">User Rating</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">340+</div>
+        <div class="stat-label">Industries</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">87%</div>
+        <div class="stat-label">Placement Rate</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="chat-preview">
+      <div class="chat-preview-header">
+        <div class="chat-avatar">
+          <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <div>
+          <div class="chat-title">CareerMind Assistant</div>
+          <div class="chat-subtitle">IBM watsonx Orchestrate · Live</div>
+        </div>
+        <div class="status-indicator"></div>
+      </div>
+      <div class="chat-messages">
+        <div class="msg ai">
+          <div class="msg-avatar ai">
+            <svg width="13" height="13" fill="#fff"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6L12 22l-3.8-7C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/></svg>
+          </div>
+          <div class="msg-bubble">Hi! I'm your AI career counselor. Tell me about your goals — let's map your path to success.</div>
+        </div>
+        <div class="msg user">
+          <div class="msg-avatar user-av">JD</div>
+          <div class="msg-bubble">I want to move from software engineering into product management.</div>
+        </div>
+        <div class="msg ai">
+          <div class="msg-avatar ai">
+            <svg width="13" height="13" fill="#fff"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6L12 22l-3.8-7C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/></svg>
+          </div>
+          <div class="msg-bubble">Great! I've found 4 key skill gaps and built a 6-month roadmap to your first PM role.</div>
+        </div>
+        <div class="msg ai" style="align-items:center">
+          <div class="msg-avatar ai" style="opacity:0">·</div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px">
+            <div class="typing-indicator">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cta-bar">
+        <button>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Start Your Live AI Session ↓
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-bg" id="features">
+  <div class="section-inner">
+    <div class="section-label">Core Capabilities</div>
+    <div class="section-title">Everything You Need to Advance Your Career</div>
+    <div class="section-subtitle">CareerMind AI combines IBM foundation models with real-world career data to deliver guidance that's personal, precise, and actionable.</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#eef4ff">
+          <svg fill="none" stroke="#3b82d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Resume Intelligence</h3>
+        <p>AI-powered analysis that identifies gaps and benchmarks your profile against top candidates in your target role.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#f3f0ff">
+          <svg fill="none" stroke="#7c5cd8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Personalized Career Chat</h3>
+        <p>Have real conversations with an AI that understands your goals, experience, and industry.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#fff3ed">
+          <svg fill="none" stroke="#ea7c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Skill Gap Analysis</h3>
+        <p>Discover exactly which skills you need for your next role with curated learning resources.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#edfff4">
+          <svg fill="none" stroke="#1a8a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Interview Coaching</h3>
+        <p>Simulate real interviews with AI-generated questions tailored to your target company and role.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#fff9ed">
+          <svg fill="none" stroke="#d49a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Market Intelligence</h3>
+        <p>Live salary benchmarks, hiring trend reports, and demand forecasts across industries.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#ffeef4">
+          <svg fill="none" stroke="#d43b7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Roadmap Generator</h3>
+        <p>Step-by-step career roadmap with milestones, certifications, and network-building actions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-label">Process</div>
+    <div class="section-title">Four Steps to Career Clarity</div>
+    <div class="section-subtitle">From your first message to your first offer, CareerMind AI guides you with precision at every stage.</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Share Your Background</h3>
+        <p>Tell the AI about your experience, skills, and aspirations.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>AI Analysis</h3>
+        <p>IBM watsonx processes your profile against millions of career trajectories.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Get Your Roadmap</h3>
+        <p>Receive a personalised action plan with timelines and checkpoints.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Land Your Role</h3>
+        <p>Practice interviews, refine your resume, apply with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATIONAL QUOTES -->
+<section class="quotes-section">
+  <div class="quotes-inner">
+    <div class="quotes-header">
+      <div class="quotes-label">Words of Guidance</div>
+      <div class="quotes-title">You Bring the Drive — We Bring the Direction</div>
+    </div>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-star">★ ★ ★ ★ ★</div>
+        <p class="quote-text">Like a great teacher, we can show you the right path — but only your dedication can turn dreams into reality.</p>
+        <div class="quote-accent"></div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-star">★ ★ ★ ★ ★</div>
+        <p class="quote-text">We guide your career journey. Your determination is what creates the destination.</p>
+        <div class="quote-accent"></div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-star">★ ★ ★ ★ ★</div>
+        <p class="quote-text">Every remarkable career begins with the right guidance. The next step forward is always yours to take.</p>
+        <div class="quote-accent"></div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-star">★ ★ ★ ★ ★</div>
+        <p class="quote-text">We help you discover your path. Your effort and courage are what turn it into lasting success.</p>
+        <div class="quote-accent"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE CHAT SECTION -->
+<section class="section chat-section-bg" id="chat">
+  <div class="section-inner">
+    <div class="chat-full-wrap">
+      <div class="chat-desc">
+        <div class="section-label">Live AI Session</div>
+        <h2>Talk to Your Career Counselor Right Now</h2>
+        <p>Ask anything — salary negotiation, career pivots, interview prep, resume reviews, or which companies are hiring in your field right now.</p>
+        <div class="feature-pills">
+          <span class="pill">Resume Review</span>
+          <span class="pill">Skill Gap Check</span>
+          <span class="pill">Interview Prep</span>
+          <span class="pill">Salary Advice</span>
+          <span class="pill">Career Pivot</span>
+          <span class="pill">Job Search</span>
+        </div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.65">
+          Powered by <strong style="color:var(--text)">IBM watsonx Orchestrate</strong> — enterprise-grade AI with privacy-first data handling.<br /><br />
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block"></span>
+            Agent online · eu-gb region
+          </span>
+        </p>
+      </div>
+      <div style="flex:1">
+        <div class="chat-trigger-card">
+          <div class="trigger-header">
+            <div class="trigger-avatar">
+              <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6L12 22l-3.8-7C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/>
+                <circle cx="12" cy="9" r="2" fill="#fff" stroke="none"/>
+              </svg>
+            </div>
+            <div>
+              <div class="trigger-title">CareerMind AI Counselor</div>
+              <div class="trigger-sub">Powered by IBM watsonx Orchestrate</div>
+            </div>
+            <div class="trigger-badge"><span class="ldot"></span> Live</div>
+          </div>
+          <div class="trigger-body">
+            <div class="trigger-icon-wrap" id="trigger-icon-wrap">
+              <svg width="32" height="32" fill="none" stroke="#3b82d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <h3 id="trigger-heading">Your AI Career Counselor is Ready</h3>
+            <p id="trigger-subtext">Click the button below to start a live session with your IBM watsonx Orchestrate agent. The chat window will open in the bottom-right corner of this page.</p>
+            <button id="open-chat-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Launch AI Career Chat
+            </button>
+            <div id="agent-status">
+              <span class="s-dot"></span>
+              <span>Agent connected — look for the <strong>chat bubble in the bottom-right corner</strong> of this page.</span>
+            </div>
+            <p class="trigger-note"><strong>Free to use.</strong> Powered by IBM watsonx Orchestrate · eu-gb region.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section" id="technology">
+  <div class="section-inner">
+    <div class="section-label">Technology Stack</div>
+    <div class="section-title">Built on Enterprise-Grade AI Infrastructure</div>
+    <div class="section-subtitle">CareerMind AI runs on IBM's most advanced AI platform, combining multiple models and real-world data for unmatched guidance.</div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#1f2328">
+          <svg width="28" height="20"><text x="1" y="21" font-size="19" font-weight="900" fill="#4af" font-family="monospace">wx</text></svg>
+        </div>
+        <div>
+          <h4>IBM watsonx Orchestrate</h4>
+          <p>Core AI orchestration engine routing queries, managing agents, and integrating enterprise workflows.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#eef4ff">
+          <svg width="22" height="22" fill="none" stroke="#3b82d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h4>watsonx.ai LLMs</h4>
+          <p>Foundation models including Granite and Llama 3 fine-tuned on career counseling data.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#f3f0ff">
+          <svg width="22" height="22" fill="none" stroke="#7c5cd8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div>
+          <h4>watsonx.data</h4>
+          <p>Real-time labor market data, job postings, salary surveys, and skills taxonomies.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#edfff4">
+          <svg width="22" height="22" fill="none" stroke="#1a8a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h4>watsonx.governance</h4>
+          <p>AI bias detection, explainability, and audit trails for fair, transparent recommendations.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#fff9ed">
+          <svg width="22" height="22" fill="none" stroke="#d49a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div>
+          <h4>Skills Intelligence Graph</h4>
+          <p>500,000+ skill relationships across 800+ job families, updated weekly from market signals.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-logo" style="background:#ffeef4">
+          <svg width="22" height="22" fill="none" stroke="#d43b7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <h4>Personalization Engine</h4>
+          <p>Adaptive system that evolves with every interaction, refining your recommendations over time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-bg" id="testimonials">
+  <div class="section-inner">
+    <div class="section-label">Success Stories</div>
+    <div class="section-title">Real People, Real Career Breakthroughs</div>
+    <div class="section-subtitle">Thousands of professionals have used CareerMind AI to land better roles, earn more, and navigate pivots with confidence.</div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <blockquote>"CareerMind AI identified exactly why I kept getting rejected. Within 3 weeks I had 4 interviews lined up."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">SR</div>
+          <div>
+            <div class="author-name">Sarah R.</div>
+            <div class="author-title">Software Engineer → Senior PM, Salesforce</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <blockquote>"The interview simulation predicted 3 of the 5 actual questions I was asked. Got the offer on the spot."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">MK</div>
+          <div>
+            <div class="author-name">Marcus K.</div>
+            <div class="author-title">Financial Analyst → Data Scientist, McKinsey</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <blockquote>"Changing careers at 40 felt impossible. CareerMind AI showed me how to position 15 years as an asset. $40K raise."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">LP</div>
+          <div>
+            <div class="author-name">Laura P.</div>
+            <div class="author-title">Teacher → UX Researcher, Google</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to Accelerate Your Career?</h2>
+  <p>Join over 98,000 professionals who've used CareerMind AI to land better roles and find work they love.</p>
+  <a href="#chat" class="btn-primary" style="font-size:15px;padding:13px 30px;display:inline-flex;align-items:center;gap:8px">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    Start Your Free AI Session
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-text">CareerMind AI</div>
+        <p>Enterprise-grade AI career counseling powered by IBM watsonx Orchestrate. Helping professionals worldwide reach their full potential.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Enterprise</a></li>
+          <li><a href="#">API Access</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Career Blog</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CareerMind AI. All rights reserved.</span>
+      <span>Powered by IBM watsonx Orchestrate · eu-gb</span>
+    </div>
+  </div>
+</footer>
+
+<div class="made-with-bob">Made with IBM Bob</div>
+
+
+
+
+<script src="script.js"></script>
+
+<script>
+  window.wxOConfiguration = {
+    orchestrationID: "064bb41ccdea4231b0369e01c958805d_da192c72-75cf-4dc3-8fd7-7a2552bc61be",
+    hostURL: "https://eu-gb.watson-orchestrate.cloud.ibm.com",
+    rootElementID: "root",
+    deploymentPlatform: "ibmcloud",
+    crn: "crn:v1:bluemix:public:watsonx-orchestrate:eu-gb:a/064bb41ccdea4231b0369e01c958805d:da192c72-75cf-4dc3-8fd7-7a2552bc61be::",
+    chatOptions: {
+        agentId: "0c419097-8a98-4fef-b09a-a38c317f0d02", 
+        agentEnvironmentId: "e3466c66-f037-4743-98d1-aa309ea8c3b6",
+    }
+  };
+  setTimeout(function () {
+    const script = document.createElement('script');
+    script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
+    script.addEventListener('load', function () {
+        wxoLoader.init();
+    });
+    document.head.appendChild(script);
+  }, 0);                     
+</script>
+
+</body>
+</html>
